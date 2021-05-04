@@ -1,6 +1,6 @@
 {
   "name": "gen-manifest",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "generate manifest.json",
   "bin": {
     "gen-manifest": "bin/index.js"
