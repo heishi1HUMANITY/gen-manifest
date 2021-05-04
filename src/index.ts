@@ -60,36 +60,39 @@ export const makeManifestJson = (manifest: Manifest, sizeList?: number[]): strin
   return JSON.stringify(manifest);
 };
 
-try {
+export const main = async () => {
+  try {
 
-  const manifest: Manifest = {};
-  manifest.lang = await stdIn('lang:(en) ') || 'en';
-  manifest.name = await stdIn('name: ');
-  manifest.short_name = await stdIn(`short_name:(${manifest.name}) `) || manifest.name;
-  manifest.start_url = await stdIn(`start_url:(/) `) || '/';
-  manifest.display = await stdIn('display:(standalone) ') || 'standalone';
-  manifest.background_color = await stdIn('background_color:(#fff) ') || '#fff';
-  manifest.description = await stdIn('description: ');
-  manifest.icon = await stdIn('icon file: ');
+    const manifest: Manifest = {};
+    manifest.lang = await stdIn('lang:(en) ') || 'en';
+    manifest.name = await stdIn('name: ');
+    manifest.short_name = await stdIn(`short_name:(${manifest.name}) `) || manifest.name;
+    manifest.start_url = await stdIn(`start_url:(/) `) || '/';
+    manifest.display = await stdIn('display:(standalone) ') || 'standalone';
+    manifest.background_color = await stdIn('background_color:(#fff) ') || '#fff';
+    manifest.description = await stdIn('description: ');
+    manifest.icon = await stdIn('icon file: ');
 
-  if (manifest.icon !== '') {
-    const sizeList: number[] = [192, 256, 384, 512];
-    saveIconFiles(manifest.icon, sizeList);
-    const manifestJson: string = makeManifestJson(manifest, sizeList);
-    console.log(manifest);
-    writeFile('manifest.json', manifestJson, (err): void => {
-      if (err) throw (err);
-    })
-  } else {
-    const manifestJson: string = makeManifestJson(manifest);
-    console.log(manifest)
-    writeFile('manifest.json', manifestJson, (err): void => {
-      if (err) throw (err);
-    })
+    if (manifest.icon !== '') {
+      const sizeList: number[] = [192, 256, 384, 512];
+      saveIconFiles(manifest.icon, sizeList);
+      const manifestJson: string = makeManifestJson(manifest, sizeList);
+      console.log(manifest);
+      writeFile('manifest.json', manifestJson, (err): void => {
+        if (err) throw (err);
+      })
+    } else {
+      const manifestJson: string = makeManifestJson(manifest);
+      console.log(manifest)
+      writeFile('manifest.json', manifestJson, (err): void => {
+        if (err) throw (err);
+      })
+    }
+
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
   }
+};
 
-} catch (err) {
-  console.error(err);
-  process.exit(1);
-}
-
+main();

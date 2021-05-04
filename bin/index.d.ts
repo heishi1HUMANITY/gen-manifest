@@ -12,4 +12,5 @@ declare type Manifest = {
 export declare const stdIn: (question: string) => Promise<string>;
 export declare const saveIconFiles: (filepath: string, sizeList: number[]) => void;
 export declare const makeManifestJson: (manifest: Manifest, sizeList?: number[] | undefined) => string;
+export declare const main: () => Promise<void>;
 export {};
