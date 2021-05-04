@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "ESNext",
+    "alwaysStrict": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./bin/",
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src"]
+}
