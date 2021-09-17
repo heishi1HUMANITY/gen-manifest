@@ -29,7 +29,7 @@ icon file: test.svg
   display: 'standalone',
   background_color: '#ddd',
   description: 'Test Manifest',      
-  icon: [
+  icons: [
     {
       src: '/icons/icon-192x192.png',
       sizes: '192x192',
