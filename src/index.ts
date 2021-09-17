@@ -12,7 +12,7 @@ type Manifest = {
   display?: string,
   background_color?: string,
   description?: string,
-  icon?: string | object[]
+  icons?: string | object[]
 };
 
 export const stdIn = (question: string): Promise<string> => {
@@ -51,10 +51,10 @@ export const makeManifestJson = (manifest: Manifest, sizeList?: number[]): strin
   if (typeof manifest === 'undefined') {
     throw new Error('no argument')
   }
-  if (typeof manifest.icon === 'string' && typeof sizeList !== 'undefined') {
-    manifest.icon = [];
+  if (typeof manifest.icons === 'string' && typeof sizeList !== 'undefined') {
+    manifest.icons = [];
     for (let s of sizeList) {
-      manifest.icon.push({ src: `/icons/icon-${s}x${s}.png`, sizes: `${s}x${s}`, type: "image/png" });
+      manifest.icons.push({ src: `/icons/icon-${s}x${s}.png`, sizes: `${s}x${s}`, type: "image/png" });
     }
   }
   return JSON.stringify(manifest);
@@ -71,11 +71,11 @@ export const main = async () => {
     manifest.display = await stdIn('display:(standalone) ') || 'standalone';
     manifest.background_color = await stdIn('background_color:(#fff) ') || '#fff';
     manifest.description = await stdIn('description: ');
-    manifest.icon = await stdIn('icon file: ');
+    manifest.icons = await stdIn('icon file: ');
 
-    if (manifest.icon !== '') {
+    if (manifest.icons !== '') {
       const sizeList: number[] = [192, 256, 384, 512];
-      saveIconFiles(manifest.icon, sizeList);
+      saveIconFiles(manifest.icons, sizeList);
       const manifestJson: string = makeManifestJson(manifest, sizeList);
       console.log(manifest);
       writeFile('manifest.json', manifestJson, (err): void => {

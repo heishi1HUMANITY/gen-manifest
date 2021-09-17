@@ -7,7 +7,7 @@ declare type Manifest = {
     display?: string;
     background_color?: string;
     description?: string;
-    icon?: string | object[];
+    icons?: string | object[];
 };
 export declare const stdIn: (question: string) => Promise<string>;
 export declare const saveIconFiles: (filepath: string, sizeList: number[]) => void;

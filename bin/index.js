@@ -71,10 +71,10 @@ const makeManifestJson = (manifest, sizeList) => {
     if (typeof manifest === 'undefined') {
         throw new Error('no argument');
     }
-    if (typeof manifest.icon === 'string' && typeof sizeList !== 'undefined') {
-        manifest.icon = [];
+    if (typeof manifest.icons === 'string' && typeof sizeList !== 'undefined') {
+        manifest.icons = [];
         for (let s of sizeList) {
-            manifest.icon.push({ src: `/icons/icon-${s}x${s}.png`, sizes: `${s}x${s}`, type: "image/png" });
+            manifest.icons.push({ src: `/icons/icon-${s}x${s}.png`, sizes: `${s}x${s}`, type: "image/png" });
         }
     }
     return JSON.stringify(manifest);
@@ -90,10 +90,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         manifest.display = (yield exports.stdIn('display:(standalone) ')) || 'standalone';
         manifest.background_color = (yield exports.stdIn('background_color:(#fff) ')) || '#fff';
         manifest.description = yield exports.stdIn('description: ');
-        manifest.icon = yield exports.stdIn('icon file: ');
-        if (manifest.icon !== '') {
+        manifest.icons = yield exports.stdIn('icon file: ');
+        if (manifest.icons !== '') {
             const sizeList = [192, 256, 384, 512];
-            exports.saveIconFiles(manifest.icon, sizeList);
+            exports.saveIconFiles(manifest.icons, sizeList);
             const manifestJson = exports.makeManifestJson(manifest, sizeList);
             console.log(manifest);
             fs_1.writeFile('manifest.json', manifestJson, (err) => {
